@@ -749,9 +749,15 @@ end
 function AssetMap.PrintRealIdsFromWorkspace()
 	local meshIds = {}
 	for _, inst in ipairs(workspace:GetDescendants()) do
-		local entry = inst:IsA("MeshPart") and AssetMap.Items[inst.Name]
-		if entry and entry.mesh then
-			meshIds[inst.Name] = tonumber(string.match(inst.MeshId, "%d+"))
+		if inst:IsA("MeshPart") then
+			local itemId = inst.Name
+			if AssetMap.Items[itemId] == nil and inst.Parent then
+				itemId = inst.Parent.Name -- the importer may name the Model after the file instead
+			end
+			local entry = AssetMap.Items[itemId]
+			if entry and entry.mesh then
+				meshIds[itemId] = tonumber(string.match(inst.MeshId, "%d+"))
+			end
 		end
 	end
 	local function current(itemId, slot)
