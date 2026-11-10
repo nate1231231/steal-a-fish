@@ -4,6 +4,7 @@ Run:  python tools/items/item_data.py  -> writes items/item_data.json
 Mesh, icon and Luau generators all import this module, so ids/prices stay in sync.
 """
 import json
+import math
 import os
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -28,7 +29,7 @@ def nice(x):
         return 0
     digits = len(str(int(x))) - 2
     step = 10 ** max(digits, 0)
-    return int(round(x / step) * step)
+    return int(math.floor(x / step + 0.5) * step)  # half-up, identical to EconomyBalance.RoundNice in Luau
 
 
 def tier_price(base, growth, tier):

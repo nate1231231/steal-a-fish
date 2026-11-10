@@ -37,7 +37,7 @@
    "reachedPct": 100
   },
   "tank_4": {
-   "medianHours": 0.28,
+   "medianHours": 0.29,
    "reachedPct": 100
   },
   "net_5": {
@@ -61,7 +61,7 @@
    "reachedPct": 100
   },
   "first_Mythic": {
-   "medianHours": 3.54,
+   "medianHours": 3.55,
    "reachedPct": 100
   },
   "net_7": {
@@ -81,8 +81,8 @@
    "reachedPct": 100
   },
   "rebirth_4": {
-   "medianHours": 11.73,
-   "reachedPct": 18
+   "medianHours": 11.77,
+   "reachedPct": 10
   }
  },
  "hourly": [
@@ -168,15 +168,15 @@
    "net": 8,
    "tank": 6,
    "rebirths": 3,
-   "incomePerSecond": 109931
+   "incomePerSecond": 112935
   }
  ],
  "rebirthCosts": [
   10000000,
   50000000,
   250000000,
-  1200000000,
-  6200000000,
+  1300000000,
+  6300000000,
   31000000000
  ]
 }

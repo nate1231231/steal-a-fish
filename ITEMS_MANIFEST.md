@@ -12,7 +12,7 @@ Every item for **Steal a Fish** (Filipino fishing theme): low-poly OBJ meshes, s
 | 2. Fish meshes + textures | done: 24 fish, 392-776 tris each, `fish_atlas.png` |
 | 3. Nets, tanks, locks, boosts, cosmetics meshes | done: 35 meshes, 168-2,148 tris each, `props_atlas.png` |
 | 4. Icons | done: 65 icons, 512x512 RGBA |
-| 5. Luau modules + balance table | pending |
+| 5. Luau modules + balance table | done: 13 modules, 48 Luau CLI checks pass |
 | 6. Studio import steps | pending |
 
 ## Folder layout
@@ -82,7 +82,7 @@ Rebuild everything: `pip install -r tools/items/requirements.txt`, then from `to
 | 32 | Net | `net_golden_trawl` | Golden Trawl Net | Mythic | tier 8, speed x3.0, luck +2.5 | 590,000,000 |
 | 33 | Tank | `tank_balde` | Balde (Bucket) | Common | tier 1, 3 slots, income x1.0 | 0 |
 | 34 | Tank | `tank_banyera` | Banyera (Fish Tub) | Common | tier 2, 5 slots, income x1.1 | 2,500 |
-| 35 | Tank | `tank_aquarium` | Glass Aquarium | Rare | tier 3, 7 slots, income x1.25 | 32,000 |
+| 35 | Tank | `tank_aquarium` | Glass Aquarium | Rare | tier 3, 7 slots, income x1.25 | 33,000 |
 | 36 | Tank | `tank_palaisdaan` | Palaisdaan (Fish Pond) | Epic | tier 4, 9 slots, income x1.5 | 420,000 |
 | 37 | Tank | `tank_coral_reef` | Coral Reef Tank | Legendary | tier 5, 12 slots, income x1.75 | 5,500,000 |
 | 38 | Tank | `tank_ocean_dome` | Ocean Dome | Mythic | tier 6, 15 slots, income x2.0 | 71,000,000 |
@@ -189,7 +189,7 @@ Rebuild everything: `pip install -r tools/items/requirements.txt`, then from `to
 
 **Icons** (65 files): `boost_auto_net.png`, `boost_cash_potion.png`, `boost_luck_potion.png`, `boost_speed_boots.png`, `dp_cash_large.png`, `dp_cash_medium.png`, `dp_cash_small.png`, `fish_alimango.png`, `fish_alimasag.png`, `fish_alumahan.png`, `fish_bakunawa.png`, `fish_bangus.png`, `fish_bisugo.png`, `fish_dalagang_bukid.png`, `fish_dilis.png`, `fish_diwata.png`, `fish_galunggong.png`, `fish_hito.png`, `fish_lapu_lapu.png`, `fish_malasugi.png`, `fish_mameng.png`, `fish_maya_maya.png`, `fish_pating.png`, `fish_pusit.png`, `fish_pusit_higante.png`, `fish_sapsap.png`, `fish_talakitok.png`, `fish_tamban.png`, `fish_tanigue.png`, `fish_tilapia.png`, `fish_tuna.png`, `gp_2x_cash.png`, `gp_auto_net.png`, `gp_vip.png`, `hat_bangus.png`, `hat_beanie.png`, `hat_bucket.png`, `hat_buri.png`, `hat_captain.png`, `hat_salakot.png`, `lock_alarm_bell.png`, `lock_chain_gate.png`, `lock_guard_dog_statue.png`, `lock_laser_fence.png`, `lock_padlock.png`, `net_bamboo_rod.png`, `net_basic.png`, `net_diamond.png`, `net_fiberglass_rod.png`, `net_golden_trawl.png`, `net_pukot.png`, `net_sapyaw.png`, `net_steel_reel.png`, `skin_bangka_classic.png`, `skin_bangka_coral.png`, `skin_bangka_ginto.png`, `skin_bangka_jeepney.png`, `skin_bangka_perlas.png`, `skin_bangka_sunset.png`, `tank_aquarium.png`, `tank_balde.png`, `tank_banyera.png`, `tank_coral_reef.png`, `tank_ocean_dome.png`, `tank_palaisdaan.png`
 
-**Luau** (0 files): _pending_
+**Luau** (13 files): `AssetMap.luau`, `BoostData.luau`, `CosmeticData.luau`, `EconomyBalance.luau`, `FishData.luau`, `ItemRegistry.luau`, `LockData.luau`, `LootRoller.luau`, `NetData.luau`, `RarityConfig.luau`, `ShopData.luau`, `StudioSetup.luau`, `TankData.luau`
 <!-- /AUTO:files -->
 
 ## Economy balance table
@@ -208,7 +208,7 @@ Rebuild everything: `pip install -r tools/items/requirements.txt`, then from `to
 | 9 | Diamond Net (7) | Ocean Dome (6) | 3 | 70,769 |
 | 10 | Golden Trawl Net (8) | Ocean Dome (6) | 3 | 86,569 |
 
-Milestones (median of 40 simulated players): first_Common 0.0 h, first_Rare 0.02 h, first_Epic 0.09 h, first_Legendary 0.28 h, rebirth_1 1.62 h, rebirth_2 2.96 h, first_Mythic 3.54 h, tank_6 5.04 h, rebirth_3 6.51 h, net_8 9.69 h, rebirth_4 11.73 h.
+Milestones (median of 40 simulated players): first_Common 0.0 h, first_Rare 0.02 h, first_Epic 0.09 h, first_Legendary 0.28 h, rebirth_1 1.62 h, rebirth_2 2.96 h, first_Mythic 3.55 h, tank_6 5.04 h, rebirth_3 6.51 h, net_8 9.69 h, rebirth_4 11.77 h.
 <!-- /AUTO:balance -->
 
 ## Failures and retries

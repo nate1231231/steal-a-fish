@@ -12,6 +12,8 @@ import os
 import numpy as np
 
 ATLAS = 1024
+# Safety valve: if Studio ever shows the atlases upside-down on the meshes, regenerate with ITEMS_FLIP_V=1.
+FLIP_V = os.environ.get("ITEMS_FLIP_V") == "1"
 
 
 def nrm(v):
@@ -179,7 +181,7 @@ class Mesh:
                      f"(1 stud = 0.28 m) | Y-up | front -Z | pivot at base\n")
             fh.write(f"o {self.name}\n")
             fh.writelines(f"v {x:.4f} {y:.4f} {z:.4f}\n" for x, y, z in vl)
-            fh.writelines(f"vt {u:.5f} {v:.5f}\n" for u, v in tl)
+            fh.writelines(f"vt {u:.5f} {1 - v if FLIP_V else v:.5f}\n" for u, v in tl)
             fh.writelines(f"vn {x:.3f} {y:.3f} {z:.3f}\n" for x, y, z in nl)
             fh.write("s off\n")
             fh.write("\n".join(fl) + "\n")
@@ -408,7 +410,8 @@ class ObjMesh:
             if t[0] == "v":
                 v.append([float(x) for x in t[1:4]])
             elif t[0] == "vt":
-                vt.append([float(x) for x in t[1:3]])
+                u_, v_ = float(t[1]), float(t[2])
+                vt.append([u_, 1 - v_ if FLIP_V else v_])
             elif t[0] == "vn":
                 vn.append([float(x) for x in t[1:4]])
             elif t[0] == "f":
