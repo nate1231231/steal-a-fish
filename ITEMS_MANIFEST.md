@@ -10,7 +10,7 @@ Every item for **Steal a Fish** (Filipino fishing theme): low-poly OBJ meshes, s
 |---|---|
 | 1. Folders, manifest, item data | done |
 | 2. Fish meshes + textures | done: 24 fish, 392-776 tris each, `fish_atlas.png` |
-| 3. Nets, tanks, locks, boosts, cosmetics meshes | pending |
+| 3. Nets, tanks, locks, boosts, cosmetics meshes | done: 35 meshes, 168-2,148 tris each, `props_atlas.png` |
 | 4. Icons | pending |
 | 5. Luau modules + balance table | pending |
 | 6. Studio import steps | pending |
@@ -120,6 +120,10 @@ Rebuild everything: `pip install -r tools/items/requirements.txt`, then from `to
 <!-- AUTO:models -->
 | File | Triangles | Bounds X x Y x Z (studs) |
 |---|---|---|
+| `items/models/boost_auto_net.obj` | 678 | 2.32 x 3.15 x 1.80 |
+| `items/models/boost_cash_potion.obj` | 188 | 1.50 x 2.35 x 1.54 |
+| `items/models/boost_luck_potion.obj` | 284 | 1.72 x 2.35 x 1.76 |
+| `items/models/boost_speed_boots.obj` | 208 | 1.65 x 1.75 x 1.77 |
 | `items/models/fish_alimango.obj` | 620 | 2.00 x 0.52 x 1.88 |
 | `items/models/fish_alimasag.obj` | 612 | 2.00 x 0.52 x 1.59 |
 | `items/models/fish_alumahan.obj` | 392 | 0.25 x 0.39 x 2.00 |
@@ -144,13 +148,44 @@ Rebuild everything: `pip install -r tools/items/requirements.txt`, then from `to
 | `items/models/fish_tanigue.obj` | 392 | 0.21 x 0.32 x 2.00 |
 | `items/models/fish_tilapia.obj` | 392 | 0.28 x 0.71 x 2.00 |
 | `items/models/fish_tuna.obj` | 488 | 0.43 x 0.68 x 2.00 |
-| **24 models** | **11,022 total**, max 776 | |
+| `items/models/hat_bangus.obj` | 320 | 1.32 x 1.24 x 2.31 |
+| `items/models/hat_beanie.obj` | 168 | 1.40 x 1.22 x 1.40 |
+| `items/models/hat_bucket.obj` | 252 | 2.04 x 0.86 x 1.99 |
+| `items/models/hat_buri.obj` | 252 | 3.04 x 0.72 x 2.96 |
+| `items/models/hat_captain.obj` | 276 | 1.56 x 0.62 x 1.52 |
+| `items/models/hat_salakot.obj` | 216 | 3.25 x 1.00 x 3.25 |
+| `items/models/lock_alarm_bell.obj` | 288 | 1.70 x 5.20 x 2.70 |
+| `items/models/lock_chain_gate.obj` | 2,148 | 9.48 x 6.70 x 1.12 |
+| `items/models/lock_guard_dog_statue.obj` | 448 | 2.80 x 4.30 x 4.00 |
+| `items/models/lock_laser_fence.obj` | 320 | 11.30 x 6.42 x 1.30 |
+| `items/models/lock_padlock.obj` | 180 | 2.08 x 2.98 x 1.08 |
+| `items/models/net_bamboo_rod.obj` | 436 | 0.44 x 6.27 x 2.78 |
+| `items/models/net_basic.obj` | 448 | 2.13 x 5.46 x 2.21 |
+| `items/models/net_diamond.obj` | 460 | 2.83 x 7.15 x 2.92 |
+| `items/models/net_fiberglass_rod.obj` | 456 | 0.72 x 6.27 x 2.78 |
+| `items/models/net_golden_trawl.obj` | 748 | 3.53 x 7.65 x 3.43 |
+| `items/models/net_pukot.obj` | 448 | 2.33 x 5.87 x 2.41 |
+| `items/models/net_sapyaw.obj` | 448 | 2.63 x 6.37 x 2.71 |
+| `items/models/net_steel_reel.obj` | 456 | 0.94 x 6.29 x 2.95 |
+| `items/models/skin_bangka_classic.obj` | 564 | 9.12 x 6.20 x 16.32 |
+| `items/models/skin_bangka_coral.obj` | 564 | 9.12 x 6.20 x 16.32 |
+| `items/models/skin_bangka_ginto.obj` | 564 | 9.12 x 6.20 x 16.32 |
+| `items/models/skin_bangka_jeepney.obj` | 564 | 9.12 x 6.20 x 16.32 |
+| `items/models/skin_bangka_perlas.obj` | 564 | 9.12 x 6.20 x 16.32 |
+| `items/models/skin_bangka_sunset.obj` | 564 | 9.12 x 6.20 x 16.32 |
+| `items/models/tank_aquarium.obj` | 304 | 8.30 x 6.55 x 4.30 |
+| `items/models/tank_balde.obj` | 336 | 2.69 x 3.67 x 2.64 |
+| `items/models/tank_banyera.obj` | 276 | 8.85 x 1.62 x 5.42 |
+| `items/models/tank_coral_reef.obj` | 538 | 10.30 x 7.55 x 5.30 |
+| `items/models/tank_ocean_dome.obj` | 1,236 | 13.80 x 8.70 x 13.80 |
+| `items/models/tank_palaisdaan.obj` | 342 | 9.51 x 2.30 x 10.00 |
+| **59 models** | **27,564 total**, max 2,148 | |
 <!-- /AUTO:models -->
 
 ## Textures, icons, Luau
 
 <!-- AUTO:files -->
-**Textures** (1 files): `fish_atlas.png`
+**Textures** (2 files): `fish_atlas.png`, `props_atlas.png`
 
 **Icons** (0 files): _pending_
 

@@ -194,8 +194,10 @@ def _ring_basis(axis):
     return a, np.cross(axis, a)
 
 
-def loft(part, rings, uvfn, start_tip=None, end_tip=None, cap_start=True, cap_end=True):
-    """Rings: list of (M,3) arrays with equal M. Faces orient away from each ring's centroid (star-shaped)."""
+def loft(part, rings, uvfn, start_tip=None, end_tip=None, cap_start=True, cap_end=True, flip=False):
+    """Rings: list of (M,3) arrays with equal M. Faces orient away from each ring's centroid (star-shaped).
+    flip=True orients faces inward (inner wall of an open bag)."""
+    sg = -1.0 if flip else 1.0
     R = [np.asarray(r, float) for r in rings]
     M = len(R[0])
     C = [r.mean(0) for r in R]
@@ -206,7 +208,7 @@ def loft(part, rings, uvfn, start_tip=None, end_tip=None, cap_start=True, cap_en
             a, b, c, d = ids[i][j], ids[i][(j + 1) % M], ids[i + 1][(j + 1) % M], ids[i + 1][j]
             for tri in ((a, b, c), (a, c, d)):
                 cen = sum(part.v[t] for t in tri) / 3
-                part.tri(*tri, cen - ref, uvfn)
+                part.tri(*tri, sg * (cen - ref), uvfn)
     for tip, ring, cen, other, cap in ((start_tip, 0, C[0], C[min(1, len(C) - 1)], cap_start),
                                        (end_tip, -1, C[-1], C[max(len(C) - 2, 0)], cap_end)):
         if tip is not None:
@@ -214,12 +216,12 @@ def loft(part, rings, uvfn, start_tip=None, end_tip=None, cap_start=True, cap_en
             for j in range(M):
                 a, b = ids[ring][j], ids[ring][(j + 1) % M]
                 cen3 = (part.v[a] + part.v[b] + part.v[t]) / 3
-                part.tri(t, a, b, cen3 - cen + (np.asarray(tip) - cen) * 0.5, uvfn)
+                part.tri(t, a, b, sg * (cen3 - cen + (np.asarray(tip) - cen) * 0.5), uvfn)
         elif cap:
             out = nrm(cen - other) if np.linalg.norm(cen - other) > 1e-9 else np.array([0, 1, 0])
             t = part.add(cen)
             for j in range(M):
-                part.tri(t, ids[ring][j], ids[ring][(j + 1) % M], out, uvfn)
+                part.tri(t, ids[ring][j], ids[ring][(j + 1) % M], sg * out, uvfn)
     return part
 
 
@@ -393,6 +395,29 @@ def merge_report(path, new):
     old.update(new)
     with open(path, "w") as fh:
         json.dump(dict(sorted(old.items())), fh, indent=1)
+
+
+# ------------------------------------------------------------------ OBJ loading (icons render the exported files)
+class ObjMesh:
+    def __init__(self, path):
+        v, vt, vn, self.f = [], [], [], []
+        for ln in open(path):
+            t = ln.split()
+            if not t:
+                continue
+            if t[0] == "v":
+                v.append([float(x) for x in t[1:4]])
+            elif t[0] == "vt":
+                vt.append([float(x) for x in t[1:3]])
+            elif t[0] == "vn":
+                vn.append([float(x) for x in t[1:4]])
+            elif t[0] == "f":
+                self.f.append([[int(i) - 1 for i in c.split("/")] for c in t[1:4]])
+        F = np.array(self.f)
+        self._a = (np.array(v)[F[..., 0]], np.array(vn)[F[..., 2]], np.array(vt)[F[..., 1]])
+
+    def arrays(self):
+        return self._a
 
 
 # ------------------------------------------------------------------ rasterizer (icons / previews)
