@@ -761,9 +761,9 @@ function AssetMap.PrintRealIdsFromWorkspace()
 				found += 1
 			end
 			local mesh = meshIds[itemId] or current(itemId, "mesh")
-			table.insert(lines, ("\\t%s = {{ mesh = %d, icon = %d }},"):format(itemId, mesh, current(itemId, "icon")))
+			table.insert(lines, ("\\t%s = {{ mesh = %d, icon = %d }},"):format(tostring(itemId), mesh, current(itemId, "icon")))
 		else
-			table.insert(lines, ("\\t%s = {{ icon = %d }},"):format(itemId, current(itemId, "icon")))
+			table.insert(lines, ("\\t%s = {{ icon = %d }},"):format(tostring(itemId), current(itemId, "icon")))
 		end
 	end
 	table.insert(lines, "}}")
