@@ -9,7 +9,7 @@ Every item for **Steal a Fish** (Filipino fishing theme): low-poly OBJ meshes, s
 | Phase | Status |
 |---|---|
 | 1. Folders, manifest, item data | done |
-| 2. Fish meshes + textures | pending |
+| 2. Fish meshes + textures | done: 24 fish, 392-776 tris each, `fish_atlas.png` |
 | 3. Nets, tanks, locks, boosts, cosmetics meshes | pending |
 | 4. Icons | pending |
 | 5. Luau modules + balance table | pending |
@@ -46,21 +46,134 @@ Rebuild everything: `pip install -r tools/items/requirements.txt`, then from `to
 ## Item IDs and data
 
 <!-- AUTO:ids -->
+| # | Category | Item ID | Name | Rarity | Key stats | Price |
+|---|---|---|---|---|---|---|
+| 1 | Fish | `fish_dilis` | Dilis | Common | 1/s, sell 30, 0.005-0.02 kg, 15.7557% base, size x0.55, body `slender` | - |
+| 2 | Fish | `fish_tamban` | Tamban | Common | 2/s, sell 60, 0.04-0.12 kg, 13.6549% base, size x0.65, body `slender` | - |
+| 3 | Fish | `fish_galunggong` | Galunggong | Common | 3/s, sell 90, 0.1-0.35 kg, 12.6046% base, size x0.75, body `slender` | - |
+| 4 | Fish | `fish_sapsap` | Sapsap | Common | 3/s, sell 90, 0.03-0.12 kg, 10.5038% base, size x0.6, body `deep` | - |
+| 5 | Fish | `fish_tilapia` | Tilapia | Common | 4/s, sell 120, 0.2-1.2 kg, 10.5038% base, size x0.9, body `deep` | - |
+| 6 | Fish | `fish_hito` | Hito | Common | 5/s, sell 150, 0.3-2.0 kg, 7.3527% base, size x1.0, body `slender` | - |
+| 7 | Fish | `fish_bangus` | Bangus | Common | 6/s, sell 180, 0.3-1.8 kg, 6.3023% base, size x1.1, body `slender` | - |
+| 8 | Fish | `fish_alumahan` | Alumahan | Rare | 12/s, sell 360, 0.1-0.4 kg, 4.9225% base, size x0.9, body `slender` | - |
+| 9 | Fish | `fish_dalagang_bukid` | Dalagang Bukid | Rare | 15/s, sell 450, 0.2-0.8 kg, 4.1652% base, size x0.9, body `slender` | - |
+| 10 | Fish | `fish_pusit` | Pusit | Rare | 18/s, sell 540, 0.1-0.8 kg, 3.7866% base, size x0.9, body `squid` | - |
+| 11 | Fish | `fish_bisugo` | Bisugo | Rare | 20/s, sell 600, 0.15-0.6 kg, 3.0292% base, size x0.9, body `deep` | - |
+| 12 | Fish | `fish_alimasag` | Alimasag | Rare | 24/s, sell 720, 0.15-0.5 kg, 2.6506% base, size x0.8, body `crab` | - |
+| 13 | Fish | `fish_talakitok` | Talakitok | Rare | 30/s, sell 900, 1.0-8.0 kg, 1.8933% base, size x1.3, body `deep` | - |
+| 14 | Fish | `fish_mameng` | Mameng | Epic | 70/s, sell 2,100, 1.0-5.0 kg, 0.6134% base, size x1.3, body `deep` | - |
+| 15 | Fish | `fish_tanigue` | Tanigue | Epic | 90/s, sell 2,700, 3.0-15.0 kg, 0.5623% base, size x1.6, body `slender` | - |
+| 16 | Fish | `fish_maya_maya` | Maya-Maya | Epic | 110/s, sell 3,300, 1.0-10.0 kg, 0.5112% base, size x1.4, body `deep` | - |
+| 17 | Fish | `fish_alimango` | Alimango | Epic | 130/s, sell 3,900, 0.5-2.5 kg, 0.4601% base, size x1.1, body `crab` | - |
+| 18 | Fish | `fish_lapu_lapu` | Lapu-Lapu | Epic | 160/s, sell 4,800, 2.0-20.0 kg, 0.4089% base, size x1.6, body `deep` | - |
+| 19 | Fish | `fish_tuna` | Tuna (Tambakol) | Legendary | 450/s, sell 13,500, 20.0-150.0 kg, 0.1043% base, size x2.0, body `tuna` | - |
+| 20 | Fish | `fish_pating` | Pating | Legendary | 600/s, sell 18,000, 10.0-60.0 kg, 0.0859% base, size x2.4, body `tuna` | - |
+| 21 | Fish | `fish_pusit_higante` | Pusit Higante | Legendary | 750/s, sell 22,500, 50.0-250.0 kg, 0.0675% base, size x2.6, body `squid` | - |
+| 22 | Fish | `fish_malasugi` | Malasugi | Legendary | 900/s, sell 27,000, 50.0-400.0 kg, 0.0491% base, size x2.8, body `tuna` | - |
+| 23 | Fish | `fish_diwata` | Diwatang Isda | Mythic | 2500/s, sell 75,000, 5.0-30.0 kg, 0.008% base, size x2.4, body `deep` | - |
+| 24 | Fish | `fish_bakunawa` | Bakunawa | Mythic | 5000/s, sell 150,000, 500.0-2000.0 kg, 0.0043% base, size x3.0, body `slender` | - |
+| 25 | Net | `net_basic` | Basic Net (Lambat) | Common | tier 1, speed x1.0, luck +0.0 | 0 |
+| 26 | Net | `net_bamboo_rod` | Bamboo Rod (Bingwit) | Common | tier 2, speed x1.15, luck +0.15 | 800 |
+| 27 | Net | `net_pukot` | Pukot Net | Rare | tier 3, speed x1.3, luck +0.35 | 7,600 |
+| 28 | Net | `net_fiberglass_rod` | Fiberglass Rod | Rare | tier 4, speed x1.5, luck +0.6 | 72,000 |
+| 29 | Net | `net_sapyaw` | Sapyaw Net | Epic | tier 5, speed x1.75, luck +0.9 | 690,000 |
+| 30 | Net | `net_steel_reel` | Steel Reel Rod | Epic | tier 6, speed x2.0, luck +1.3 | 6,500,000 |
+| 31 | Net | `net_diamond` | Diamond Net | Legendary | tier 7, speed x2.4, luck +1.8 | 62,000,000 |
+| 32 | Net | `net_golden_trawl` | Golden Trawl Net | Mythic | tier 8, speed x3.0, luck +2.5 | 590,000,000 |
+| 33 | Tank | `tank_balde` | Balde (Bucket) | Common | tier 1, 3 slots, income x1.0 | 0 |
+| 34 | Tank | `tank_banyera` | Banyera (Fish Tub) | Common | tier 2, 5 slots, income x1.1 | 2,500 |
+| 35 | Tank | `tank_aquarium` | Glass Aquarium | Rare | tier 3, 7 slots, income x1.25 | 32,000 |
+| 36 | Tank | `tank_palaisdaan` | Palaisdaan (Fish Pond) | Epic | tier 4, 9 slots, income x1.5 | 420,000 |
+| 37 | Tank | `tank_coral_reef` | Coral Reef Tank | Legendary | tier 5, 12 slots, income x1.75 | 5,500,000 |
+| 38 | Tank | `tank_ocean_dome` | Ocean Dome | Mythic | tier 6, 15 slots, income x2.0 | 71,000,000 |
+| 39 | Lock | `lock_padlock` | Padlock (Kandado) | Common | difficulty 1, +2s steal | 2,500 |
+| 40 | Lock | `lock_chain_gate` | Chain Gate | Rare | difficulty 2, +4s steal | 25,000 |
+| 41 | Lock | `lock_alarm_bell` | Alarm Bell (Kampana) | Epic | difficulty 3, +3s steal | 250,000 |
+| 42 | Lock | `lock_laser_fence` | Laser Fence | Legendary | difficulty 4, +5s steal | 2,500,000 |
+| 43 | Lock | `lock_guard_dog_statue` | Guard Dog Statue (Bantay) | Mythic | difficulty 5, +6s steal | 25,000,000 |
+| 44 | Boost | `boost_speed_boots` | Speed Boots | Rare | 300s, walkSpeedMultiplier=1.4 | 60s of income (min 500) |
+| 45 | Boost | `boost_cash_potion` | 2x Cash Potion | Epic | 600s, cashMultiplier=2.0 | 300s of income (min 2,000) |
+| 46 | Boost | `boost_luck_potion` | Luck Potion | Epic | 600s, luckBonus=1.0 | 240s of income (min 1,500) |
+| 47 | Boost | `boost_auto_net` | Auto-Net | Legendary | 900s, autoCast=True, autoCastIntervalMultiplier=1.5 | 360s of income (min 3,000) |
+| 48 | BangkaSkin | `skin_bangka_classic` | Klasikong Bangka | Common | cosmetic | 0 |
+| 49 | BangkaSkin | `skin_bangka_coral` | Coral Reef Bangka | Rare | cosmetic | 50,000 |
+| 50 | BangkaSkin | `skin_bangka_sunset` | Sunset Bangka | Rare | cosmetic | 150,000 |
+| 51 | BangkaSkin | `skin_bangka_perlas` | Perlas Bangka | Epic | cosmetic | 2,000,000 |
+| 52 | BangkaSkin | `skin_bangka_jeepney` | Jeepney Bangka | Legendary | cosmetic | 25,000,000 |
+| 53 | BangkaSkin | `skin_bangka_ginto` | Gintong Bangka | Mythic | cosmetic | 250,000,000 |
+| 54 | Hat | `hat_salakot` | Salakot | Common | cosmetic | 1,000 |
+| 55 | Hat | `hat_bucket` | Bucket Hat | Common | cosmetic | 5,000 |
+| 56 | Hat | `hat_beanie` | Fisher Beanie | Rare | cosmetic | 20,000 |
+| 57 | Hat | `hat_buri` | Buri Straw Hat | Rare | cosmetic | 50,000 |
+| 58 | Hat | `hat_captain` | Kapitan Cap | Epic | cosmetic | 1,000,000 |
+| 59 | Hat | `hat_bangus` | Bangus Hat | Legendary | cosmetic | 20,000,000 |
+| 60 | GamePass | `gp_2x_cash` | 2x Cash | Legendary | gamePassId 0 (placeholder) | R$ 299 |
+| 61 | GamePass | `gp_auto_net` | Auto-Net Pass | Legendary | gamePassId 0 (placeholder) | R$ 349 |
+| 62 | GamePass | `gp_vip` | VIP | Mythic | gamePassId 0 (placeholder) | R$ 199 |
+| 63 | DevProduct | `dp_cash_small` | Pouch of Pesos | Rare | productId 0 (placeholder), 600s income | R$ 49 |
+| 64 | DevProduct | `dp_cash_medium` | Sack of Pesos | Epic | productId 0 (placeholder), 2400s income | R$ 149 |
+| 65 | DevProduct | `dp_cash_large` | Treasure Chest | Legendary | productId 0 (placeholder), 9000s income | R$ 399 |
 <!-- /AUTO:ids -->
 
 ## Models (triangle counts)
 
 <!-- AUTO:models -->
+| File | Triangles | Bounds X x Y x Z (studs) |
+|---|---|---|
+| `items/models/fish_alimango.obj` | 620 | 2.00 x 0.52 x 1.88 |
+| `items/models/fish_alimasag.obj` | 612 | 2.00 x 0.52 x 1.59 |
+| `items/models/fish_alumahan.obj` | 392 | 0.25 x 0.39 x 2.00 |
+| `items/models/fish_bakunawa.obj` | 560 | 0.46 x 0.72 x 2.00 |
+| `items/models/fish_bangus.obj` | 392 | 0.26 x 0.41 x 2.00 |
+| `items/models/fish_bisugo.obj` | 392 | 0.26 x 0.64 x 2.00 |
+| `items/models/fish_dalagang_bukid.obj` | 392 | 0.27 x 0.43 x 2.00 |
+| `items/models/fish_dilis.obj` | 392 | 0.20 x 0.30 x 2.00 |
+| `items/models/fish_diwata.obj` | 404 | 0.30 x 0.88 x 2.00 |
+| `items/models/fish_galunggong.obj` | 392 | 0.26 x 0.41 x 2.00 |
+| `items/models/fish_hito.obj` | 480 | 0.36 x 0.61 x 2.00 |
+| `items/models/fish_lapu_lapu.obj` | 400 | 0.24 x 0.60 x 2.00 |
+| `items/models/fish_malasugi.obj` | 414 | 0.22 x 0.38 x 2.00 |
+| `items/models/fish_mameng.obj` | 392 | 0.28 x 0.69 x 2.00 |
+| `items/models/fish_maya_maya.obj` | 392 | 0.28 x 0.71 x 2.00 |
+| `items/models/fish_pating.obj` | 396 | 0.29 x 0.47 x 2.00 |
+| `items/models/fish_pusit.obj` | 776 | 0.59 x 0.45 x 2.00 |
+| `items/models/fish_pusit_higante.obj` | 776 | 0.59 x 0.45 x 2.00 |
+| `items/models/fish_sapsap.obj` | 392 | 0.35 x 0.88 x 2.00 |
+| `items/models/fish_talakitok.obj` | 392 | 0.29 x 0.74 x 2.00 |
+| `items/models/fish_tamban.obj` | 392 | 0.23 x 0.36 x 2.00 |
+| `items/models/fish_tanigue.obj` | 392 | 0.21 x 0.32 x 2.00 |
+| `items/models/fish_tilapia.obj` | 392 | 0.28 x 0.71 x 2.00 |
+| `items/models/fish_tuna.obj` | 488 | 0.43 x 0.68 x 2.00 |
+| **24 models** | **11,022 total**, max 776 | |
 <!-- /AUTO:models -->
 
 ## Textures, icons, Luau
 
 <!-- AUTO:files -->
+**Textures** (1 files): `fish_atlas.png`
+
+**Icons** (0 files): _pending_
+
+**Luau** (0 files): _pending_
 <!-- /AUTO:files -->
 
 ## Economy balance table
 
 <!-- AUTO:balance -->
+| Hour | Best net (tier) | Best tank (tier) | Rebirths | Income / s (median) |
+|---|---|---|---|---|
+| 1 | Sapyaw Net (5) | Coral Reef Tank (5) | 0 | 4,892 |
+| 2 | Steel Reel Rod (6) | Coral Reef Tank (5) | 1 | 6,387 |
+| 3 | Steel Reel Rod (6) | Coral Reef Tank (5) | 2 | 9,209 |
+| 4 | Steel Reel Rod (6) | Coral Reef Tank (5) | 2 | 17,101 |
+| 5 | Diamond Net (7) | Coral Reef Tank (5) | 2 | 33,671 |
+| 6 | Diamond Net (7) | Ocean Dome (6) | 2 | 41,290 |
+| 7 | Diamond Net (7) | Ocean Dome (6) | 3 | 32,038 |
+| 8 | Diamond Net (7) | Ocean Dome (6) | 3 | 51,450 |
+| 9 | Diamond Net (7) | Ocean Dome (6) | 3 | 70,769 |
+| 10 | Golden Trawl Net (8) | Ocean Dome (6) | 3 | 86,569 |
+
+Milestones (median of 40 simulated players): first_Common 0.0 h, first_Rare 0.02 h, first_Epic 0.09 h, first_Legendary 0.28 h, rebirth_1 1.62 h, rebirth_2 2.96 h, first_Mythic 3.54 h, tank_6 5.04 h, rebirth_3 6.51 h, net_8 9.69 h, rebirth_4 11.73 h.
 <!-- /AUTO:balance -->
 
 ## Failures and retries

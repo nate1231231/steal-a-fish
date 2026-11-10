@@ -174,7 +174,7 @@ FISH = [
     F(id="fish_bakunawa", name="Bakunawa", englishName="Moon-Eater Sea Serpent", rarity="Mythic",
       cashPerSecond=5000, weightKg=[500.0, 2000.0], catchWeight=35, sizeScale=3.0,
       description="The sea dragon that tried to swallow the moon.",
-      visual=dict(variant="slender", ratio=7.5, tail="long", crest=True, horns=True, whiskers=True,
+      visual=dict(variant="slender", ratio=6.3, tail="long", crest=True, horns=True, whiskers=True,
                   back=[45, 25, 100], belly=[235, 185, 60], fin=[240, 190, 60], accent=[90, 230, 255],
                   pattern="dragon")),
 ]

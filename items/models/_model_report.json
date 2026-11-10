@@ -1,0 +1,218 @@
+{
+ "fish_alimango": {
+  "tris": 620,
+  "size": [
+   2.0,
+   0.516,
+   1.879
+  ],
+  "invertedParts": []
+ },
+ "fish_alimasag": {
+  "tris": 612,
+  "size": [
+   2.0,
+   0.515,
+   1.588
+  ],
+  "invertedParts": []
+ },
+ "fish_alumahan": {
+  "tris": 392,
+  "size": [
+   0.252,
+   0.393,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_bakunawa": {
+  "tris": 560,
+  "size": [
+   0.462,
+   0.719,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_bangus": {
+  "tris": 392,
+  "size": [
+   0.262,
+   0.411,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_bisugo": {
+  "tris": 392,
+  "size": [
+   0.257,
+   0.637,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_dalagang_bukid": {
+  "tris": 392,
+  "size": [
+   0.273,
+   0.429,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_dilis": {
+  "tris": 392,
+  "size": [
+   0.2,
+   0.305,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_diwata": {
+  "tris": 404,
+  "size": [
+   0.296,
+   0.881,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_galunggong": {
+  "tris": 392,
+  "size": [
+   0.262,
+   0.411,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_hito": {
+  "tris": 480,
+  "size": [
+   0.362,
+   0.61,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_lapu_lapu": {
+  "tris": 400,
+  "size": [
+   0.244,
+   0.602,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_malasugi": {
+  "tris": 414,
+  "size": [
+   0.219,
+   0.381,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_mameng": {
+  "tris": 392,
+  "size": [
+   0.275,
+   0.685,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_maya_maya": {
+  "tris": 392,
+  "size": [
+   0.284,
+   0.711,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_pating": {
+  "tris": 396,
+  "size": [
+   0.288,
+   0.467,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_pusit": {
+  "tris": 776,
+  "size": [
+   0.595,
+   0.454,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_pusit_higante": {
+  "tris": 776,
+  "size": [
+   0.595,
+   0.454,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_sapsap": {
+  "tris": 392,
+  "size": [
+   0.347,
+   0.88,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_talakitok": {
+  "tris": 392,
+  "size": [
+   0.295,
+   0.739,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_tamban": {
+  "tris": 392,
+  "size": [
+   0.234,
+   0.363,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_tanigue": {
+  "tris": 392,
+  "size": [
+   0.206,
+   0.315,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_tilapia": {
+  "tris": 392,
+  "size": [
+   0.284,
+   0.711,
+   2.0
+  ],
+  "invertedParts": []
+ },
+ "fish_tuna": {
+  "tris": 488,
+  "size": [
+   0.431,
+   0.678,
+   2.0
+  ],
+  "invertedParts": []
+ }
+}

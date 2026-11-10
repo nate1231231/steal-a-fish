@@ -1096,7 +1096,7 @@
     "description": "The sea dragon that tried to swallow the moon.",
     "visual": {
      "variant": "slender",
-     "ratio": 7.5,
+     "ratio": 6.3,
      "tail": "long",
      "crest": true,
      "horns": true,

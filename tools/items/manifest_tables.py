@@ -100,8 +100,8 @@ SECTIONS = dict(ids=sec_ids, models=sec_models, files=sec_files, balance=sec_bal
 def main():
     text = open(MAN).read()
     for name, fn in SECTIONS.items():
-        pat = re.compile(rf"(<!-- AUTO:{name} -->\n).*?(\n<!-- /AUTO:{name} -->)", re.S)
-        text = pat.sub(lambda m: m.group(1) + fn() + m.group(2), text)
+        pat = re.compile(rf"(<!-- AUTO:{name} -->)\n?.*?\n?(<!-- /AUTO:{name} -->)", re.S)
+        text = pat.sub(lambda m: m.group(1) + "\n" + fn() + "\n" + m.group(2), text)
     open(MAN, "w").write(text)
     print("manifest tables updated")
 
