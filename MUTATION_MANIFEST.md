@@ -8,7 +8,7 @@ rewritten. New Luau lives in `studio/mutations/`, and each file's header comment
 | Phase | Status |
 |---|---|
 | 1. Plan | done |
-| 2. Data modules (StarConfig, MutationData, FishDisplay) | pending |
+| 2. Data modules (StarConfig, MutationData, FishDisplay) | done; EconomyBalance extended (stars and mutations optional args) |
 | 3. Event scheduler (EventSchedule, EventServer) | pending |
 | 4. Roller, stacking, DataStore schema (MutationRoller, FishSchema, MutationService) | pending |
 | 5. UI (countdown panel, banners, popups, fish visuals, atmosphere) | pending |

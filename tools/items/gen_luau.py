@@ -339,6 +339,8 @@ local TankData = require(script.Parent.TankData)
 local LockData = require(script.Parent.LockData)
 local BoostData = require(script.Parent.BoostData)
 local ShopData = require(script.Parent.ShopData)
+local StarConfig = require(script.Parent.StarConfig) -- studio/mutations/shared
+local MutationData = require(script.Parent.MutationData) -- studio/mutations/shared
 
 local EconomyBalance = {{}}
 
@@ -394,19 +396,42 @@ function EconomyBalance.WeightFraction(fishId, weightKg)
 	return math.clamp((weightKg - fish.weightMin) / (fish.weightMax - fish.weightMin), 0, 1)
 end
 
+-- ===================================================================== stars & mutations (see MUTATION_MANIFEST.md)
+-- Star grade multiplier (1.0 ... 2.0). nil stars (old saves) = 1.
+function EconomyBalance.StarMultiplier(stars)
+	return StarConfig.GetMultiplier(stars)
+end
+
+-- Combined mutation multiplier with MutationData.Rules stacking + hard cap. Empty/nil = 1.
+function EconomyBalance.MutationMultiplier(mutationIds)
+	return (MutationData.CombineMultipliers(mutationIds))
+end
+
+-- Everything that makes ONE fish worth more than its species base (weight bonus not included).
+function EconomyBalance.FishValueMultiplier(stars, mutationIds)
+	return EconomyBalance.StarMultiplier(stars) * EconomyBalance.MutationMultiplier(mutationIds)
+end
+
 -- Income per second for ONE fish, before tank/rebirth/boost multipliers.
-function EconomyBalance.FishIncome(fishId, weightKg)
+-- stars and mutationIds are optional, so old two-argument calls still work.
+function EconomyBalance.FishIncome(fishId, weightKg, stars, mutationIds)
 	local fish = FishData.ById[fishId]
 	if fish == nil then
 		return 0
 	end
 	local bonus = 1 + EconomyBalance.WEIGHT_BONUS_MAX * EconomyBalance.WeightFraction(fishId, weightKg or fish.weightMin)
-	return math.floor(fish.cashPerSecond * bonus * 10 + 0.5) / 10
+	local value = fish.cashPerSecond * bonus * EconomyBalance.FishValueMultiplier(stars, mutationIds)
+	return math.floor(value * 10 + 0.5) / 10
 end
 
 -- Cash for selling one fish.
-function EconomyBalance.SellValue(fishId, weightKg)
-	return math.floor(EconomyBalance.FishIncome(fishId, weightKg) * EconomyBalance.SELL_SECONDS + 0.5)
+function EconomyBalance.SellValue(fishId, weightKg, stars, mutationIds)
+	return math.floor(EconomyBalance.FishIncome(fishId, weightKg, stars, mutationIds) * EconomyBalance.SELL_SECONDS + 0.5)
+end
+
+-- Same as FishIncome, for a saved fish record {{ id, w, st, mu }} (FishSchema)
+function EconomyBalance.RecordIncome(record)
+	return EconomyBalance.FishIncome(record.id, record.w, record.st, record.mu)
 end
 
 -- ===================================================================== rebirths
@@ -428,7 +453,7 @@ end
 	Total income per second for a base. Call it on the SERVER with server data:
 
 	EconomyBalance.IncomePerSecond({{
-		fish = {{ {{ id = "fish_bangus", weightKg = 1.2 }}, ... }},  -- only the fish inside the tank
+		fish = {{ {{ id = "fish_bangus", weightKg = 1.2, stars = 3, mutations = {{ "thunderstorm" }} }}, ... }},
 		tankId = "tank_aquarium",
 		rebirths = 2,
 		cashMultiplier = 2,      -- 2x Cash Potion and/or 2x Cash gamepass (multiply them together)
@@ -440,7 +465,7 @@ function EconomyBalance.IncomePerSecond(params)
 	local tank = TankData.ById[params.tankId] or TankData.List[1]
 	local incomes = {{}}
 	for _, owned in ipairs(params.fish or {{}}) do
-		table.insert(incomes, EconomyBalance.FishIncome(owned.id, owned.weightKg))
+		table.insert(incomes, EconomyBalance.FishIncome(owned.id, owned.weightKg, owned.stars, owned.mutations))
 	end
 	table.sort(incomes, function(a, b)
 		return a > b
@@ -526,7 +551,8 @@ return EconomyBalance"""
 	to CHANGE a player's cash.
 
 	Core formulas
-	  fish income    = cashPerSecond * (1 + 0.25 * weightFraction)
+	  fish income    = cashPerSecond * (1 + 0.25 * weightFraction) * starMultiplier * mutationMultiplier
+	                   (stars: StarConfig, mutations: MutationData stacking + cap; both optional)
 	  base income/s  = sum(best fish up to tank capacity) * tank.incomeMultiplier
 	                   * (1 + 0.5 * rebirths) * cashMultiplier * VIP(1.1)
 	  net/tank price = RoundNice(base * growth ^ (tier - 2))   (tier 1 is free)
@@ -900,10 +926,16 @@ print(("ALL %d CHECKS PASSED"):format(ok))
 
 def bundle():
     names = ["RarityConfig", "FishData", "NetData", "TankData", "LockData", "BoostData", "CosmeticData", "ShopData",
+             "StarConfig", "MutationData", "EventSchedule",
              "EconomyBalance", "ItemRegistry", "AssetMap", "LootRoller"]
     parts = [STUBS]
     for n in names:
-        src = open(os.path.join(OUT, n + ".luau")).read()
+        path = os.path.join(OUT, n + ".luau")
+        if not os.path.exists(path):  # extension modules (stars/mutations) live in studio/mutations/shared
+            path = os.path.join(D.ROOT, "studio", "mutations", "shared", n + ".luau")
+        if not os.path.exists(path):
+            continue
+        src = open(path).read()
         parts.append(f'MODULES["{n}"] = function(script)\n{src}\nend\n')
     slots = sum(2 if c in D.MODEL_CATEGORIES else 1 for c, _ in D.all_items()) + 2
     parts.append(TESTS.replace("EXPECTED_COUNT", str(sum(1 for _ in D.all_items())))
