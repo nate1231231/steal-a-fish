@@ -10,7 +10,7 @@ rewritten. New Luau lives in `studio/mutations/`, and each file's header comment
 | 1. Plan | done |
 | 2. Data modules (StarConfig, MutationData, FishDisplay) | done; EconomyBalance extended (stars and mutations optional args) |
 | 3. Event scheduler (EventSchedule, EventAuthority, EventServer) | done: 31 Luau tests pass |
-| 4. Roller, stacking, DataStore schema (MutationRoller, FishSchema, MutationService) | pending |
+| 4. Roller, stacking, DataStore schema (MutationRoller, FishSchema, MutationService) | done: 94 Luau tests pass |
 | 5. UI (countdown panel, banners, popups, fish visuals, atmosphere) | pending |
 | 6. Economy + tests | pending |
 | 7. Manifest + final report | pending |
