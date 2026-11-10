@@ -135,6 +135,7 @@ MeshPart instead of setting TextureID.
    - Rebirth costs `10M x 5^r`. It resets cash and fish, keeps everything else, and gives +50% income and +0.1 luck per rebirth.
    - First pass: all upgrades were done in 2.4 h, too fast, so I retuned. Final: Golden Trawl at about 9.7 h.
    - The first hour is deliberately fast (the hook).
+   - **Update (mutations run):** stars and mutations made progression about 13% faster, so net prices are now `1,000 x 9.5^(tier-2)`, tank prices `3,100 x 13^(tier-2)` and rebirth `12M x 5^r`. With stars and mutations on, Golden Trawl lands at about 9.96 h. The auto table below is the **items-only** Python baseline, which is now slower (about 10.7 h). The full-game table lives in `MUTATION_MANIFEST.md` and `EconomyBalance.BalanceTable`.
 10. **Boost prices and cash packs scale with income** (`priceSecondsOfIncome`, `cashSecondsOfIncome`), so they stay meaningful for the whole 10 hours.
 11. **Item IDs**: lowercase `category_name` with prefixes `fish_`, `net_`, `tank_`, `lock_`, `boost_`, `skin_`, `hat_`, `gp_`, `dp_`. The file names match the ids.
 12. **Luau is generated** from `item_data.py` (data modules, EconomyBalance, AssetMap), so prices, ids and the balance table can't drift. ItemRegistry, LootRoller and StudioSetup are hand-written. Plain Luau without strict types, chosen for beginners. Data tables are `table.freeze`d.
