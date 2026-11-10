@@ -73,8 +73,8 @@ keeps the real odds exact.
 |---|---|---|---|
 | 1 ★ | 50% | x1.00 | 0 |
 | 2 ★★ | 28% | x1.15 | 0.50 |
-| 3 ★★★ | 14% | x1.35 | 0.70 |
-| 4 ★★★★ | 6% | x1.60 | 0.82 |
+| 3 ★★★ | 14% | x1.35 | 0.67 |
+| 4 ★★★★ | 6% | x1.60 | 0.80 |
 | 5 ★★★★★ | 2% | x2.00 | 0.90 |
 
 Stars show above every fish (BillboardGui from `FishVisuals`), on backpack Tool names (`FishDisplay.ToolName`), in
