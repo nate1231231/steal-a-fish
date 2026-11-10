@@ -15,12 +15,12 @@ FISH_BASE_LENGTH = 2.0        # studs; every fish OBJ is baked at this length, g
 BASE_CAST_SECONDS = 10.0      # seconds per catch with catchSpeed 1.0
 SELL_SECONDS = 30             # sell value = cashPerSecond * SELL_SECONDS
 WEIGHT_BONUS_MAX = 0.25       # heaviest roll in a species' range earns +25% income
-REBIRTH_BASE_COST = 10_000_000
+REBIRTH_BASE_COST = 12_000_000   # x1.2 after stars + mutations (MUTATION_MANIFEST decision 9)
 REBIRTH_COST_GROWTH = 5.0
 REBIRTH_INCOME_BONUS = 0.5    # +50% income per rebirth
 REBIRTH_LUCK_BONUS = 0.1
-NET_PRICE_BASE, NET_PRICE_GROWTH = 800, 9.5      # tier 2 price, x per tier
-TANK_PRICE_BASE, TANK_PRICE_GROWTH = 2_500, 13.0
+NET_PRICE_BASE, NET_PRICE_GROWTH = 1_000, 9.5    # tier 2 price, x per tier (x1.25 for stars + mutations)
+TANK_PRICE_BASE, TANK_PRICE_GROWTH = 3_100, 13.0
 
 
 def nice(x):

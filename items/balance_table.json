@@ -25,11 +25,11 @@
    "reachedPct": 100
   },
   "tank_3": {
-   "medianHours": 0.1,
+   "medianHours": 0.11,
    "reachedPct": 100
   },
   "net_4": {
-   "medianHours": 0.15,
+   "medianHours": 0.16,
    "reachedPct": 100
   },
   "first_Legendary": {
@@ -37,146 +37,142 @@
    "reachedPct": 100
   },
   "tank_4": {
-   "medianHours": 0.29,
+   "medianHours": 0.33,
    "reachedPct": 100
   },
   "net_5": {
-   "medianHours": 0.41,
+   "medianHours": 0.45,
    "reachedPct": 100
   },
   "tank_5": {
-   "medianHours": 0.9,
+   "medianHours": 1.03,
    "reachedPct": 100
   },
   "net_6": {
-   "medianHours": 1.22,
+   "medianHours": 1.42,
    "reachedPct": 100
   },
   "rebirth_1": {
-   "medianHours": 1.62,
+   "medianHours": 1.83,
    "reachedPct": 100
   },
   "rebirth_2": {
-   "medianHours": 2.96,
+   "medianHours": 3.31,
    "reachedPct": 100
   },
   "first_Mythic": {
-   "medianHours": 3.55,
+   "medianHours": 3.75,
    "reachedPct": 100
   },
   "net_7": {
-   "medianHours": 4.36,
+   "medianHours": 4.88,
    "reachedPct": 100
   },
   "tank_6": {
-   "medianHours": 5.04,
+   "medianHours": 5.75,
    "reachedPct": 100
   },
   "rebirth_3": {
-   "medianHours": 6.51,
+   "medianHours": 7.25,
    "reachedPct": 100
   },
   "net_8": {
-   "medianHours": 9.69,
-   "reachedPct": 100
-  },
-  "rebirth_4": {
-   "medianHours": 11.77,
-   "reachedPct": 10
+   "medianHours": 10.73,
+   "reachedPct": 90
   }
  },
  "hourly": [
   {
    "hour": 1,
    "net": 5,
-   "tank": 5,
+   "tank": 4,
    "rebirths": 0,
-   "incomePerSecond": 4892
+   "incomePerSecond": 4355
   },
   {
    "hour": 2,
    "net": 6,
    "tank": 5,
    "rebirths": 1,
-   "incomePerSecond": 6387
+   "incomePerSecond": 5812
   },
   {
    "hour": 3,
    "net": 6,
    "tank": 5,
-   "rebirths": 2,
-   "incomePerSecond": 9209
+   "rebirths": 1,
+   "incomePerSecond": 11701
   },
   {
    "hour": 4,
    "net": 6,
    "tank": 5,
    "rebirths": 2,
-   "incomePerSecond": 17101
+   "incomePerSecond": 14289
   },
   {
    "hour": 5,
    "net": 7,
    "tank": 5,
    "rebirths": 2,
-   "incomePerSecond": 33671
+   "incomePerSecond": 23273
   },
   {
    "hour": 6,
    "net": 7,
    "tank": 6,
    "rebirths": 2,
-   "incomePerSecond": 41290
+   "incomePerSecond": 41413
   },
   {
    "hour": 7,
    "net": 7,
    "tank": 6,
-   "rebirths": 3,
-   "incomePerSecond": 32038
+   "rebirths": 2,
+   "incomePerSecond": 53051
   },
   {
    "hour": 8,
    "net": 7,
    "tank": 6,
    "rebirths": 3,
-   "incomePerSecond": 51450
+   "incomePerSecond": 39915
   },
   {
    "hour": 9,
    "net": 7,
    "tank": 6,
    "rebirths": 3,
-   "incomePerSecond": 70769
+   "incomePerSecond": 58254
   },
   {
    "hour": 10,
-   "net": 8,
+   "net": 7,
    "tank": 6,
    "rebirths": 3,
-   "incomePerSecond": 86569
+   "incomePerSecond": 76861
   },
   {
    "hour": 11,
    "net": 8,
    "tank": 6,
    "rebirths": 3,
-   "incomePerSecond": 99940
+   "incomePerSecond": 88785
   },
   {
    "hour": 12,
    "net": 8,
    "tank": 6,
    "rebirths": 3,
-   "incomePerSecond": 112935
+   "incomePerSecond": 102599
   }
  ],
  "rebirthCosts": [
-  10000000,
-  50000000,
-  250000000,
-  1300000000,
-  6300000000,
-  31000000000
+  12000000,
+  60000000,
+  300000000,
+  1500000000,
+  7500000000,
+  38000000000
  ]
 }

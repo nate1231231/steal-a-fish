@@ -169,19 +169,19 @@ MeshPart instead of setting TextureID.
 | 23 | Fish | `fish_diwata` | Diwatang Isda | Mythic | 2500/s, sell 75,000, 5.0-30.0 kg, 0.008% base, size x2.4, body `deep` | - |
 | 24 | Fish | `fish_bakunawa` | Bakunawa | Mythic | 5000/s, sell 150,000, 500.0-2000.0 kg, 0.0043% base, size x3.0, body `slender` | - |
 | 25 | Net | `net_basic` | Basic Net (Lambat) | Common | tier 1, speed x1.0, luck +0.0 | 0 |
-| 26 | Net | `net_bamboo_rod` | Bamboo Rod (Bingwit) | Common | tier 2, speed x1.15, luck +0.15 | 800 |
-| 27 | Net | `net_pukot` | Pukot Net | Rare | tier 3, speed x1.3, luck +0.35 | 7,600 |
-| 28 | Net | `net_fiberglass_rod` | Fiberglass Rod | Rare | tier 4, speed x1.5, luck +0.6 | 72,000 |
-| 29 | Net | `net_sapyaw` | Sapyaw Net | Epic | tier 5, speed x1.75, luck +0.9 | 690,000 |
-| 30 | Net | `net_steel_reel` | Steel Reel Rod | Epic | tier 6, speed x2.0, luck +1.3 | 6,500,000 |
-| 31 | Net | `net_diamond` | Diamond Net | Legendary | tier 7, speed x2.4, luck +1.8 | 62,000,000 |
-| 32 | Net | `net_golden_trawl` | Golden Trawl Net | Mythic | tier 8, speed x3.0, luck +2.5 | 590,000,000 |
+| 26 | Net | `net_bamboo_rod` | Bamboo Rod (Bingwit) | Common | tier 2, speed x1.15, luck +0.15 | 1,000 |
+| 27 | Net | `net_pukot` | Pukot Net | Rare | tier 3, speed x1.3, luck +0.35 | 9,500 |
+| 28 | Net | `net_fiberglass_rod` | Fiberglass Rod | Rare | tier 4, speed x1.5, luck +0.6 | 90,000 |
+| 29 | Net | `net_sapyaw` | Sapyaw Net | Epic | tier 5, speed x1.75, luck +0.9 | 860,000 |
+| 30 | Net | `net_steel_reel` | Steel Reel Rod | Epic | tier 6, speed x2.0, luck +1.3 | 8,100,000 |
+| 31 | Net | `net_diamond` | Diamond Net | Legendary | tier 7, speed x2.4, luck +1.8 | 77,000,000 |
+| 32 | Net | `net_golden_trawl` | Golden Trawl Net | Mythic | tier 8, speed x3.0, luck +2.5 | 740,000,000 |
 | 33 | Tank | `tank_balde` | Balde (Bucket) | Common | tier 1, 3 slots, income x1.0 | 0 |
-| 34 | Tank | `tank_banyera` | Banyera (Fish Tub) | Common | tier 2, 5 slots, income x1.1 | 2,500 |
-| 35 | Tank | `tank_aquarium` | Glass Aquarium | Rare | tier 3, 7 slots, income x1.25 | 33,000 |
-| 36 | Tank | `tank_palaisdaan` | Palaisdaan (Fish Pond) | Epic | tier 4, 9 slots, income x1.5 | 420,000 |
-| 37 | Tank | `tank_coral_reef` | Coral Reef Tank | Legendary | tier 5, 12 slots, income x1.75 | 5,500,000 |
-| 38 | Tank | `tank_ocean_dome` | Ocean Dome | Mythic | tier 6, 15 slots, income x2.0 | 71,000,000 |
+| 34 | Tank | `tank_banyera` | Banyera (Fish Tub) | Common | tier 2, 5 slots, income x1.1 | 3,100 |
+| 35 | Tank | `tank_aquarium` | Glass Aquarium | Rare | tier 3, 7 slots, income x1.25 | 40,000 |
+| 36 | Tank | `tank_palaisdaan` | Palaisdaan (Fish Pond) | Epic | tier 4, 9 slots, income x1.5 | 520,000 |
+| 37 | Tank | `tank_coral_reef` | Coral Reef Tank | Legendary | tier 5, 12 slots, income x1.75 | 6,800,000 |
+| 38 | Tank | `tank_ocean_dome` | Ocean Dome | Mythic | tier 6, 15 slots, income x2.0 | 89,000,000 |
 | 39 | Lock | `lock_padlock` | Padlock (Kandado) | Common | difficulty 1, +2s steal | 2,500 |
 | 40 | Lock | `lock_chain_gate` | Chain Gate | Rare | difficulty 2, +4s steal | 25,000 |
 | 41 | Lock | `lock_alarm_bell` | Alarm Bell (Kampana) | Epic | difficulty 3, +3s steal | 250,000 |
@@ -293,18 +293,18 @@ MeshPart instead of setting TextureID.
 <!-- AUTO:balance -->
 | Hour | Best net (tier) | Best tank (tier) | Rebirths | Income / s (median) |
 |---|---|---|---|---|
-| 1 | Sapyaw Net (5) | Coral Reef Tank (5) | 0 | 4,892 |
-| 2 | Steel Reel Rod (6) | Coral Reef Tank (5) | 1 | 6,387 |
-| 3 | Steel Reel Rod (6) | Coral Reef Tank (5) | 2 | 9,209 |
-| 4 | Steel Reel Rod (6) | Coral Reef Tank (5) | 2 | 17,101 |
-| 5 | Diamond Net (7) | Coral Reef Tank (5) | 2 | 33,671 |
-| 6 | Diamond Net (7) | Ocean Dome (6) | 2 | 41,290 |
-| 7 | Diamond Net (7) | Ocean Dome (6) | 3 | 32,038 |
-| 8 | Diamond Net (7) | Ocean Dome (6) | 3 | 51,450 |
-| 9 | Diamond Net (7) | Ocean Dome (6) | 3 | 70,769 |
-| 10 | Golden Trawl Net (8) | Ocean Dome (6) | 3 | 86,569 |
+| 1 | Sapyaw Net (5) | Palaisdaan (Fish Pond) (4) | 0 | 4,355 |
+| 2 | Steel Reel Rod (6) | Coral Reef Tank (5) | 1 | 5,812 |
+| 3 | Steel Reel Rod (6) | Coral Reef Tank (5) | 1 | 11,701 |
+| 4 | Steel Reel Rod (6) | Coral Reef Tank (5) | 2 | 14,289 |
+| 5 | Diamond Net (7) | Coral Reef Tank (5) | 2 | 23,273 |
+| 6 | Diamond Net (7) | Ocean Dome (6) | 2 | 41,413 |
+| 7 | Diamond Net (7) | Ocean Dome (6) | 2 | 53,051 |
+| 8 | Diamond Net (7) | Ocean Dome (6) | 3 | 39,915 |
+| 9 | Diamond Net (7) | Ocean Dome (6) | 3 | 58,254 |
+| 10 | Diamond Net (7) | Ocean Dome (6) | 3 | 76,861 |
 
-Milestones (median of 40 simulated players): first_Common 0.0 h, first_Rare 0.02 h, first_Epic 0.09 h, first_Legendary 0.28 h, rebirth_1 1.62 h, rebirth_2 2.96 h, first_Mythic 3.55 h, tank_6 5.04 h, rebirth_3 6.51 h, net_8 9.69 h, rebirth_4 11.77 h.
+Milestones (median of 40 simulated players): first_Common 0.0 h, first_Rare 0.02 h, first_Epic 0.09 h, first_Legendary 0.28 h, rebirth_1 1.83 h, rebirth_2 3.31 h, first_Mythic 3.75 h, tank_6 5.75 h, rebirth_3 7.25 h, net_8 10.73 h.
 <!-- /AUTO:balance -->
 
 ## Verification done (in this sandbox)

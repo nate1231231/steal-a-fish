@@ -326,6 +326,30 @@ return ShopData"""
 
 def economy_balance():
     bt = json.load(open(os.path.join(D.ROOT, "items", "balance_table.json")))
+    balance_header = ("--[[ ===================================================================== balance table\n"
+                      "\tSimulated with tools/items/balance_sim.py (items only): 40 players, casting 60% of the time, "
+                      "keeping\n\ttheir best fish, buying the cheapest next net/tank, rebirthing when it's cheaper than "
+                      "the next\n\tupgrade. No boosts, gamepasses or stealing, which all speed things up.\n")
+    value_rows, value_txt, mutation_cap = [], "\t(run python tools/mutations/run_luau.py sim)", "see MutationData.Rules"
+    mb_path = os.path.join(D.ROOT, "items", "mutation_balance.json")
+    if os.path.exists(mb_path):  # full game: stars + mutations + world events (tools/mutations/economy_sim.luau)
+        mb = json.load(open(mb_path))
+        bt = mb["full"]
+        balance_header = ("--[[ ===================================================================== balance table\n"
+                          "\tFULL GAME simulation (tools/mutations/economy_sim.luau, real modules): 40 players with stars,\n"
+                          "\tmutations and world events ON, casting 60% of the time, keeping their best fish, buying the\n"
+                          "\tcheapest next net/tank, rebirthing when it's cheaper than the next upgrade. No boosts,\n"
+                          f"\tgamepasses or stealing. Event uptime {mb['eventUptime'] * 100:.1f}%, "
+                          f"{bt['mutatedCatchShare'] * 100:.2f}% of catches mutated.\n")
+        value_rows = [{k: (round(v, 3) if isinstance(v, float) else v) for k, v in r.items()} for r in mb["valueTable"]]
+        mutation_cap = f"{mb['valueTable'][-1]['mutationMultiplier']:g}"
+        value_txt = "\n".join(
+            f"\t{r['label']:<50} x{r['totalMultiplier']:<6g} Bangus {r['bangusIncome']:>7g}/s  "
+            f"Tuna {r['tunaIncome']:>8g}/s  " + (f"1 in {round(r['oneInCatches']):,} catches" if r.get('oneInCatches')
+                                                else "via steals during different events")
+            for r in mb["valueTable"])
+        if mb.get("averageCatchMultiplier"):
+            value_txt += f"\n\tAverage random catch (luck 0): x{mb['averageCatchMultiplier']:.3f}"
     rows = [dict(hour=h["hour"], netTier=h["net"], net=D.NETS[h["net"] - 1]["name"], tankTier=h["tank"],
                  tank=D.TANKS[h["tank"] - 1]["name"], rebirths=h["rebirths"], incomePerSecond=h["incomePerSecond"])
             for h in bt["hourly"][:10]]
@@ -333,6 +357,10 @@ def economy_balance():
                           f"{r['tank'] + ' (' + str(r['tankTier']) + ')':<28} | {r['rebirths']} | {r['incomePerSecond']:>8,}/s"
                           for r in rows)
     ms = {k: v["medianHours"] for k, v in bt["milestones"].items()}
+    try:
+        mutation_cap_x2 = f"{float(mutation_cap) * 2:g}"
+    except ValueError:
+        mutation_cap_x2 = "2 x cap"
     body = f"""local FishData = require(script.Parent.FishData)
 local NetData = require(script.Parent.NetData)
 local TankData = require(script.Parent.TankData)
@@ -341,6 +369,7 @@ local BoostData = require(script.Parent.BoostData)
 local ShopData = require(script.Parent.ShopData)
 local StarConfig = require(script.Parent.StarConfig) -- studio/mutations/shared
 local MutationData = require(script.Parent.MutationData) -- studio/mutations/shared
+local EventSchedule = require(script.Parent.EventSchedule) -- studio/mutations/shared
 
 local EconomyBalance = {{}}
 
@@ -520,11 +549,49 @@ function EconomyBalance.StealSeconds(ownedLockIds)
 	return seconds
 end
 
---[[ ===================================================================== balance table
-	Simulated with tools/items/balance_sim.py: 40 players, casting 60% of the time, always keeping
-	their best fish, buying the cheapest next net/tank, rebirthing when it's cheaper than the next
-	upgrade. No boosts, gamepasses or stealing, which all speed things up.
+-- ===================================================================== world events (EventSchedule + MutationData)
+-- Fraction of all time where an event is active (about 0.23 with the default calendar)
+function EconomyBalance.EventUptime()
+	return EventSchedule.ExpectedUptime()
+end
 
+-- Chance that a random cast (at a random moment) gains a mutation, at this luck
+function EconomyBalance.MutationChancePerCast(luck)
+	local total = 0
+	for _, mutation in ipairs(MutationData.List) do
+		local activeShare = EventSchedule.EventProbability(mutation.id) * mutation.durationSeconds
+			/ EventSchedule.Config.slotSeconds
+		local chance = math.min(mutation.chance * (1 + MutationData.Rules.luckChanceBonus * (luck or 0)),
+			MutationData.Rules.maxChance)
+		total += activeShare * chance
+	end
+	return total
+end
+
+-- Average value multiplier of ONE random catch from stars + mutations (about 1.17 at luck 0).
+-- Players keep their best fish, so the tank average is higher (see BalanceTable avgStars).
+function EconomyBalance.ExpectedCatchMultiplier(luck)
+	local mutationGain = 0
+	for _, mutation in ipairs(MutationData.List) do
+		local activeShare = EventSchedule.EventProbability(mutation.id) * mutation.durationSeconds
+			/ EventSchedule.Config.slotSeconds
+		local chance = math.min(mutation.chance * (1 + MutationData.Rules.luckChanceBonus * (luck or 0)),
+			MutationData.Rules.maxChance)
+		mutationGain += activeShare * chance * (mutation.multiplier - 1)
+	end
+	return StarConfig.ExpectedMultiplier() * (1 + mutationGain)
+end
+
+--[[ ===================================================================== expected value table
+	Base fish vs a 5-star fish with 1, 3 and 8 mutations (Bangus = 6/s base, Tuna = 450/s base,
+	lightest weight). Mutation multipliers stack additively and are capped at x{mutation_cap};
+	stars multiply on top, so no fish can ever be worth more than x{mutation_cap_x2} its base.
+
+{value_txt}
+]]
+EconomyBalance.ValueTable = {lua(value_rows)}
+
+{balance_header}
 	hour | best net                   | best tank                    | rebirths | income
 {table_txt}
 
@@ -535,7 +602,7 @@ end
 	next goal is always 30-90 minutes away.
 
 	Want a longer game? Raise PRICE_CURVES growth or lower the Legendary/Mythic weights in RarityConfig,
-	then re-run balance_sim.py to check.
+	then re-run the simulation (python tools/mutations/run_luau.py sim) to check.
 ]]
 EconomyBalance.BalanceTable = {lua(rows)}
 
@@ -556,7 +623,7 @@ return EconomyBalance"""
 	  base income/s  = sum(best fish up to tank capacity) * tank.incomeMultiplier
 	                   * (1 + 0.5 * rebirths) * cashMultiplier * VIP(1.1)
 	  net/tank price = RoundNice(base * growth ^ (tier - 2))   (tier 1 is free)
-	  rebirth cost   = RoundNice(10,000,000 * 5 ^ rebirths)
+	  rebirth cost   = RoundNice(REBIRTH.baseCost * REBIRTH.costGrowth ^ rebirths)
 	  cast time      = 10 / net.catchSpeed seconds""", body)
 
 
@@ -907,7 +974,7 @@ local inc = Eco.IncomePerSecond({ fish = { { id = "fish_tuna", weightKg = 20 }, 
 	{ id = "fish_bangus", weightKg = 0.3 }, { id = "fish_tilapia", weightKg = 0.2 } }, tankId = "tank_balde", rebirths = 2,
 	cashMultiplier = 2, vip = true })
 check(math.abs(inc - (450 + 6 + 4) * 1 * 2 * 2 * 1.1) < 1e-6, "income capacity + multipliers " .. inc)
-check(Eco.RebirthCost(0) == 10000000 and Eco.RebirthCost(1) == 50000000, "rebirth cost")
+check(Eco.RebirthCost(0) == REBIRTH_0 and Eco.RebirthCost(1) == REBIRTH_1, "rebirth cost")
 check(Eco.BoostPrice("boost_cash_potion", 0) == 2000 and Eco.BoostPrice("boost_cash_potion", 1000) == 300000, "boost price")
 check(Eco.CashPackAmount("dp_cash_small", 100000) == 60000000, "cash pack")
 check(Eco.StealSeconds({ "lock_padlock", "lock_chain_gate" }) == 9, "steal seconds")
@@ -939,6 +1006,8 @@ def bundle():
         parts.append(f'MODULES["{n}"] = function(script)\n{src}\nend\n')
     slots = sum(2 if c in D.MODEL_CATEGORIES else 1 for c, _ in D.all_items()) + 2
     parts.append(TESTS.replace("EXPECTED_COUNT", str(sum(1 for _ in D.all_items())))
+                 .replace("REBIRTH_0", str(D.nice(D.REBIRTH_BASE_COST)))
+                 .replace("REBIRTH_1", str(D.nice(D.REBIRTH_BASE_COST * D.REBIRTH_COST_GROWTH)))
                  .replace("EXPECTED_SLOTS", str(slots)))
     os.makedirs("/tmp/luau", exist_ok=True)
     with open("/tmp/luau/bundle.luau", "w") as fh:

@@ -62,13 +62,13 @@
   "baseCastSeconds": 10.0,
   "sellSeconds": 30,
   "weightBonusMax": 0.25,
-  "rebirthBaseCost": 10000000,
+  "rebirthBaseCost": 12000000,
   "rebirthCostGrowth": 5.0,
   "rebirthIncomeBonus": 0.5,
   "rebirthLuckBonus": 0.1,
-  "netPriceBase": 800,
+  "netPriceBase": 1000,
   "netPriceGrowth": 9.5,
-  "tankPriceBase": 2500,
+  "tankPriceBase": 3100,
   "tankPriceGrowth": 13.0,
   "placeholderId": 0
  },
@@ -1150,7 +1150,7 @@
     "luck": 0.15,
     "rarity": "Common",
     "description": "Lolo's trusty bamboo pole.",
-    "price": 800
+    "price": 1000
    },
    {
     "id": "net_pukot",
@@ -1161,7 +1161,7 @@
     "luck": 0.35,
     "rarity": "Rare",
     "description": "A proper nylon net for bigger schools.",
-    "price": 7600
+    "price": 9500
    },
    {
     "id": "net_fiberglass_rod",
@@ -1172,7 +1172,7 @@
     "luck": 0.6,
     "rarity": "Rare",
     "description": "Light, bendy and surprisingly lucky.",
-    "price": 72000
+    "price": 90000
    },
    {
     "id": "net_sapyaw",
@@ -1183,7 +1183,7 @@
     "luck": 0.9,
     "rarity": "Epic",
     "description": "Wide-mouth scoop net used on night boats.",
-    "price": 690000
+    "price": 860000
    },
    {
     "id": "net_steel_reel",
@@ -1194,7 +1194,7 @@
     "luck": 1.3,
     "rarity": "Epic",
     "description": "Heavy reel for heavy fish.",
-    "price": 6500000
+    "price": 8100000
    },
    {
     "id": "net_diamond",
@@ -1205,7 +1205,7 @@
     "luck": 1.8,
     "rarity": "Legendary",
     "description": "Woven with crystal thread. Fish love shiny.",
-    "price": 62000000
+    "price": 77000000
    },
    {
     "id": "net_golden_trawl",
@@ -1216,7 +1216,7 @@
     "luck": 2.5,
     "rarity": "Mythic",
     "description": "The ultimate net. Even the Bakunawa fears it.",
-    "price": 590000000
+    "price": 740000000
    }
   ],
   "Tank": [
@@ -1238,7 +1238,7 @@
     "incomeMultiplier": 1.1,
     "rarity": "Common",
     "description": "The wet-market classic.",
-    "price": 2500
+    "price": 3100
    },
    {
     "id": "tank_aquarium",
@@ -1248,7 +1248,7 @@
     "incomeMultiplier": 1.25,
     "rarity": "Rare",
     "description": "Show off your catch.",
-    "price": 33000
+    "price": 40000
    },
    {
     "id": "tank_palaisdaan",
@@ -1258,7 +1258,7 @@
     "incomeMultiplier": 1.5,
     "rarity": "Epic",
     "description": "Your own backyard fishpond.",
-    "price": 420000
+    "price": 520000
    },
    {
     "id": "tank_coral_reef",
@@ -1268,7 +1268,7 @@
     "incomeMultiplier": 1.75,
     "rarity": "Legendary",
     "description": "A living reef. Fish grow happier (and richer).",
-    "price": 5500000
+    "price": 6800000
    },
    {
     "id": "tank_ocean_dome",
@@ -1278,7 +1278,7 @@
     "incomeMultiplier": 2.0,
     "rarity": "Mythic",
     "description": "A piece of the ocean under a golden dome.",
-    "price": 71000000
+    "price": 89000000
    }
   ],
   "Lock": [

@@ -12,7 +12,7 @@ rewritten. New Luau lives in `studio/mutations/`, and each file's header comment
 | 3. Event scheduler (EventSchedule, EventAuthority, EventServer) | done: 31 Luau tests pass |
 | 4. Roller, stacking, DataStore schema (MutationRoller, FishSchema, MutationService) | done: 94 Luau tests pass |
 | 5. UI (countdown panel, banners, popups, fish visuals, atmosphere) | done: 8 client files, luau-analyze clean; not run in Studio |
-| 6. Economy + tests | pending |
+| 6. Economy + tests | done: prices x1.2-1.25 keep the 10 h curve; 99 + 48 Luau tests pass |
 | 7. Manifest + final report | pending |
 
 ## Plan

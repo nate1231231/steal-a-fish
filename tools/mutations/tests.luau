@@ -347,6 +347,34 @@ do
 	check(d.totalMultiplier == 10 and d.incomePerSecond == 60 and d.mutations[1].isNew and not d.mutations[2].isNew, "Describe")
 end
 
+section("EconomyBalance: event frequency + expected catch value (200,000 catches at random times)")
+do
+	check(near(EconomyBalance.EventUptime(), EventSchedule.ExpectedUptime(), 1e-12), "EventUptime")
+	local random = Random.new(21)
+	local N, sum, mutated = 200000, 0, 0
+	for _ = 1, N do
+		local t = 1793000000 + random:NextNumber() * 86400 * 60
+		local catch = LootRoller.RollFish({ netId = "net_basic", random = random })
+		local record = MutationRoller.CreateCatch(catch, { eventId = EventSchedule.GetActiveEventId(t), luck = 0, random = random })
+		sum += EconomyBalance.FishValueMultiplier(record.st, record.mu)
+		if #record.mu > 0 then
+			mutated += 1
+		end
+	end
+	local expectedShare = EconomyBalance.MutationChancePerCast(0)
+	check(near(mutated / N, expectedShare, binomialTolerance(expectedShare, N)),
+		("mutated share %.5f vs %.5f"):format(mutated / N, expectedShare))
+	check(near(sum / N, EconomyBalance.ExpectedCatchMultiplier(0), 0.01),
+		("average catch multiplier %.4f vs %.4f"):format(sum / N, EconomyBalance.ExpectedCatchMultiplier(0)))
+	print(("   mutated catches %.2f%% (expected %.2f%%), average value x%.3f (expected x%.3f)"):format(
+		mutated / N * 100, expectedShare * 100, sum / N, EconomyBalance.ExpectedCatchMultiplier(0)))
+	local table_ = EconomyBalance.ValueTable
+	check(#table_ == 7 and table_[1].totalMultiplier == 1 and table_[#table_].totalMultiplier
+		== StarConfig.Get(5).multiplier * MutationData.Rules.multiplierCap, "ValueTable rows (run the sim, then gen_luau)")
+	check(EconomyBalance.Milestones.net_8 ~= nil and EconomyBalance.Milestones.net_8 >= 9 and EconomyBalance.Milestones.net_8 <= 11,
+		"full-game Golden Trawl stays near 10 hours: " .. tostring(EconomyBalance.Milestones.net_8))
+end
+
 --@@MORE_TESTS@@
 
 print(("RESULT: %d passed, %d failed"):format(passed, failed))
