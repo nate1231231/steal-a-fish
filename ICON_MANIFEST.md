@@ -8,7 +8,7 @@ Same file names, same 512x512 RGBA PNG format, so nothing else in the repo chang
 | Phase | Status |
 |---|---|
 | 1. Tool check | done |
-| 2. Renderer + one test icon per category | pending |
+| 2. Renderer + one test icon per category | done (`icon_render.py`, `gen_icons2.py`) |
 | 3. All 65 icons + 8 badges | pending |
 | 4. Contact sheet check + one fix pass | pending |
 | 5. Manifest + report | pending |
