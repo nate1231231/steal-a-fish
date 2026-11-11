@@ -52,8 +52,9 @@ VIEW_OVERRIDE = {
     "fish_alimasag": (-35, 44, 1.5), "fish_alimango": (-35, 44, 1.5),
     "fish_pusit": (55, 18, 1.2), "fish_pusit_higante": (55, 18, 1.2), "fish_hito": (62, 20, 1.6),
     "fish_bakunawa": (62, 20, 1.5), "fish_malasugi": (62, 18, 1.4), "fish_diwata": (62, 20, 1.2),
-    "net_bamboo_rod": (-50, 18, 2.6), "net_fiberglass_rod": (-50, 18, 2.6), "net_steel_reel": (-50, 18, 2.2),
+    "net_bamboo_rod": (-50, 18, 2.6, 38), "net_fiberglass_rod": (-50, 18, 2.6, 38), "net_steel_reel": (-50, 18, 2.2, 38),
     "lock_laser_fence": (-28, 18, 1.4), "lock_chain_gate": (-25, 16, 1.0), "lock_alarm_bell": (-35, 18, 1.2),
+    "lock_guard_dog_statue": (-32, 12, 0.9),
     "tank_banyera": (-35, 32, 0.6), "tank_palaisdaan": (-35, 36, 0.6), "tank_ocean_dome": (-35, 22, 0.6),
     "hat_salakot": (-35, 34, 0.6), "hat_buri": (-35, 34, 0.6), "hat_bangus": (55, 24, 1.0),
     "boost_speed_boots": (-40, 22, 1.0), "gp_auto_net": (-35, 20, 0.8),
@@ -93,7 +94,7 @@ def background(rarity, seed):
         rc = np.stack([np.clip(np.abs(h6 - 3) - 1, 0, 1), np.clip(2 - np.abs(h6 - 2), 0, 1),
                        np.clip(2 - np.abs(h6 - 4), 0, 1)], -1) * 0.8 + 0.2
         shimmer = 0.85 + 0.15 * np.sin(xx * 46 + yy * 31 + rng.uniform(0, 6))
-        img = base + rc * (g * shimmer)[..., None] * 0.95
+        img = base + rc * (g * shimmer)[..., None] * 0.72
         ray_col = np.array([1, 1, 1], np.float32)
     else:
         img = base + glow * g[..., None] * (0.6 if rarity == "Common" else 0.95)
@@ -193,15 +194,19 @@ def draw_stars(img, count, total=5):
 
 # ------------------------------------------------------------------ item layer
 def item_layer(mesh, tex, view):
-    yaw, pitch, thin = view
+    yaw, pitch, thin = view[:3]
+    roll = view[3] if len(view) > 3 else 0  # 2D tilt after rendering (rods lie along the diagonal)
     rgb, alpha, shadow = render_item(mesh, tex, size=SIZE, ss=2, yaw=yaw, pitch=pitch, thin_boost=thin)
     img = Image.fromarray(np.dstack([(rgb * 255).astype(np.uint8), (alpha * 255).astype(np.uint8)]), "RGBA")
     sh = Image.fromarray((shadow * 255).astype(np.uint8), "L")
+    if roll:
+        img = img.rotate(roll, Image.BICUBIC, expand=True)
+        sh = sh.rotate(roll, Image.BICUBIC, expand=True)
     bbox = img.getbbox()  # fit the MODEL only; the ground shadow is cropped with it but doesn't drive the scale
     img, sh = img.crop(bbox), sh.crop(bbox)
     bw, bh = ITEM_BOX[2] - ITEM_BOX[0], ITEM_BOX[3] - ITEM_BOX[1]
     aspect = max(img.width, img.height) / max(1, min(img.width, img.height))
-    fill = ITEM_FILL if aspect < 1.8 else min(0.80, ITEM_FILL * (0.85 + 0.12 * aspect))  # long/flat items may span wider
+    fill = ITEM_FILL if aspect < 1.8 else min(0.86, ITEM_FILL * (0.85 + 0.14 * aspect))  # long/flat items may span wider
     target = fill * (SIZE - 2 * INNER)
     sc = min(target / max(img.width, img.height), bw / img.width, bh / img.height)
     nw, nh = max(1, int(img.width * sc)), max(1, int(img.height * sc))
@@ -319,16 +324,20 @@ def g_eclipse(dr, S):
 
 
 def g_bakunawa(dr, S):
-    dr.ellipse((S * 0.30, S * 0.16, S * 0.74, S * 0.60), fill=(232, 228, 255, 255), outline=(122, 102, 182, 255), width=int(S * 0.01))
-    body = [(0.14, 0.82), (0.20, 0.60), (0.32, 0.48), (0.46, 0.44), (0.62, 0.50), (0.74, 0.66), (0.64, 0.72), (0.52, 0.60),
-            (0.44, 0.60), (0.34, 0.66), (0.30, 0.84)]
-    dr.polygon([(x * S, y * S) for x, y in body], fill=(62, 22, 112, 255), outline=(112, 242, 255, 255), width=int(S * 0.012))
-    for x, y in ((0.36, 0.50), (0.44, 0.46), (0.52, 0.48), (0.60, 0.54)):
-        dr.polygon([(x * S, y * S), ((x + 0.04) * S, y * S), ((x + 0.02) * S, (y - 0.06) * S)], fill=(232, 250, 255, 255))
-    dr.ellipse((S * 0.54, S * 0.56, S * 0.60, S * 0.62), fill=(112, 242, 255, 255))
-    for k in range(3):
-        x = 0.24 + k * 0.1
-        dr.polygon([(x * S, 0.64 * S), ((x + 0.05) * S, 0.66 * S), ((x + 0.01) * S, 0.76 * S)], fill=(255, 202, 72, 255))
+    # full moon with a serpent head biting a chunk out of its lower-left
+    dr.ellipse((S * 0.26, S * 0.16, S * 0.78, S * 0.68), fill=(236, 232, 255, 255), outline=(128, 108, 190, 255), width=int(S * 0.012))
+    for cx, cy, r in ((0.60, 0.30, 0.05), (0.66, 0.46, 0.035), (0.48, 0.26, 0.03)):
+        dr.ellipse(((cx - r) * S, (cy - r) * S, (cx + r) * S, (cy + r) * S), fill=(205, 198, 235, 255))
+    head = [(0.10, 0.86), (0.14, 0.62), (0.26, 0.48), (0.42, 0.44), (0.56, 0.50), (0.62, 0.62), (0.54, 0.64),
+            (0.46, 0.58), (0.36, 0.60), (0.30, 0.70), (0.30, 0.86)]
+    dr.polygon([(x * S, y * S) for x, y in head], fill=(58, 20, 110, 255), outline=(112, 242, 255, 255), width=int(S * 0.014))
+    for x, y in ((0.30, 0.52), (0.38, 0.48), (0.46, 0.50), (0.54, 0.56)):  # teeth on the upper jaw
+        dr.polygon([(x * S, y * S), ((x + 0.05) * S, (y + 0.005) * S), ((x + 0.025) * S, (y + 0.08) * S)], fill=(236, 250, 255, 255))
+    dr.ellipse((S * 0.20, S * 0.56, S * 0.28, S * 0.64), fill=(112, 242, 255, 255))
+    dr.ellipse((S * 0.225, S * 0.585, S * 0.255, S * 0.615), fill=(10, 10, 30, 255))
+    for k in range(3):  # golden crest
+        x = 0.14 + k * 0.08
+        dr.polygon([(x * S, 0.62 * S), ((x + 0.06) * S, 0.60 * S), ((x + 0.01) * S, 0.50 * S)], fill=(255, 202, 72, 255))
 
 
 BADGES = {
